@@ -1,7 +1,7 @@
 from django.db import models
 
 class Order(models.Model):
-    order_number    = models.CharField(unique=True)
+    order_number    = models.CharField(max_length =10, unique=True)
     sender_name     = models.CharField(max_length=50)
     address         = models.CharField(max_length=500)
     recipient_name  = models.CharField(max_length=50)
