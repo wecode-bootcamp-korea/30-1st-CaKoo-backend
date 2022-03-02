@@ -1,7 +1,7 @@
 from django.db import models
 
 class Order(models.Model):
-    order_number    = models.CharField(max_length =10, unique=True)
+    order_number    = models.CharField(max_length=36, unique=True)
     sender_name     = models.CharField(max_length=50)
     address         = models.CharField(max_length=500)
     recipient_name  = models.CharField(max_length=50)
@@ -17,7 +17,7 @@ class OrderStatus(models.Model):
     status = models.CharField(max_length=15)
     
     class Meta:
-        db_table = "orderstatus"
+        db_table = "order_status"
         
 class OrderItem(models.Model):
     order        = models.ForeignKey("Order", related_name="orderitems", on_delete=models.CASCADE)
@@ -25,5 +25,5 @@ class OrderItem(models.Model):
     quantity     = models.IntegerField()
     
     class Meta:
-        db_table = "orderitems"
+        db_table = "order_items"
         

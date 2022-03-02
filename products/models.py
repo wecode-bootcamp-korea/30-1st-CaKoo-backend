@@ -17,7 +17,7 @@ class ProductSize(models.Model):
     size    = models.ForeignKey("Size", related_name="productsizes", on_delete=models.CASCADE)
     
     class Meta:
-        db_table = "productsizes"
+        db_table = "product_sizes"
         
 class Size(models.Model):
     size = models.CharField(max_length=20)
@@ -31,7 +31,7 @@ class ProductImage(models.Model):
     product  = models.ForeignKey("Product", related_name="productimages", on_delete=models.CASCADE)
     
     class Meta:
-        db_table = "productimages"
+        db_table = "product_images"
         
 class InformationImage(models.Model):
     sequence = models.IntegerField()
@@ -39,4 +39,4 @@ class InformationImage(models.Model):
     product  = models.ForeignKey("Product", related_name="informationimages", on_delete=models.CASCADE)
     
     class Meta:
-        db_table = "informationimages"
+        db_table = "information_images"
