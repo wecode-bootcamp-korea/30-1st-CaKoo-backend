@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import pymysql
 
 from pathlib import Path
-from secret  import SECRET_KEY, DATABASES
-
+from secret  import SECRET_KEY, DATABASES, ALGORITHM
 
 
 pymysql.install_as_MySQLdb()
@@ -26,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY
-
+ALGORITHM = ALGORITHM
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
