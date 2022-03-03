@@ -7,6 +7,7 @@ class Product(models.Model):
     created_at   = models.DateTimeField(auto_now_add=True)
     updated_at   = models.DateTimeField(auto_now=True)
     sizes        = models.ManyToManyField("Size", related_name="products", through="ProductSize", through_fields=("product", "size"))
+    discout_rate = models.DecimalField(max_digits=3, decimal_places=2) 
     
     class Meta:
         db_table = "products"
