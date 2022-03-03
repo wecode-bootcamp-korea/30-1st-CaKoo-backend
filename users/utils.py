@@ -17,8 +17,7 @@ def login_decorator(func):
             if not User.objects.filter(id = user_id).exists():
                 return JsonResponse({"message" : "INVALID_UESR"}, status = 401)
 
-            user         = User.objects.get(id = user_id)
-            request.user = user
+            request.user = User.objects.get(id = user_id)
 
             return func(self, request, *args, **kwargs)
         
