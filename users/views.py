@@ -11,7 +11,7 @@ class SignUpView(View):
         try:
             data = json.loads(request.body)
 
-            name         = data['name'],
+            name         = data['name']
             email        = data['email']
             password     = data['password']
             phone_number = data['phone_number']
