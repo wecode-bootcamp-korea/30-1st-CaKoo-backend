@@ -162,3 +162,6 @@ node_modules/
 !.elasticbeanstalk/*.global.yml
 
 secret.py
+db_uploads.py
+product.csv
+product_size.csv
