@@ -19,6 +19,7 @@ class ProductDetailView(View):
             result = {
                 'description'        : product.description,
                 'name'               : product.name,
+                'base_price'         : product_sizes[0].price,
                 'size_price'         : size_price,
                 'discount_rate'      : product.discount_rate,
                 'product_images'     : product_urls,

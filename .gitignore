@@ -165,3 +165,5 @@ secret.py
 db_uploads.py
 product.csv
 product_size.csv
+product_image.csv
+information_image.csv
