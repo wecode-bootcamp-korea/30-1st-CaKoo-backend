@@ -1,4 +1,3 @@
-from genericpath import exists
 import json
 
 from django.http      import JsonResponse
