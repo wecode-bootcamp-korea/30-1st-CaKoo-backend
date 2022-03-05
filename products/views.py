@@ -1,8 +1,6 @@
-import json, jwt
-
 from django.views     import View
 from django.http      import JsonResponse
-from django.db.models import Q, F, Count , Max , Window
+from django.db.models import Q
 
 from products.models  import Product, ProductSize
 
@@ -10,23 +8,34 @@ class ProductsView(View):
     def get(self, request): 
         try:
             ordering = request.GET.get('ordering', None)
-            filter_set = {}            
-                
-            products = Product.objects.filter(**filter_set)
+            sort     = request.GET.get('sort', "id")
+            size     = request.GET.getlist('size', None)
+            page     = int(request.GET.get('page', 0))
+            limit    = int(request.GET.get('limit', 8))
             
+            q = Q()
+                
+            if size:
+                q &= Q(sizes__in=size)
+            
+            sort_set = {
+                "id" : "id",
+            } 
+                      
             if ordering == 'recent':
-                products = Product.objects.order_by('-created_at')
+                results = Product.objects.order_by('-created_at')
                 
             results = [{
                 "id"            : product.id,
                 "name"          : product.name,
                 "description"   : product.description,
                 "thumbnail"     : product.thumbnail,
-                "sizes"         : product.sizes.all()[0].size,
+                "sizes"         : ProductSize.objects.filter(product=product).first().size.size,
                 "discount_rate" : float(product.discount_rate),
                 "price"         : int(ProductSize.objects.filter(product=product).first().price) * float(product.discount_rate)
-                } for product in products]
-            
+                } for product in Product.objects.filter(q).distinct().order_by(sort_set[sort])[page:page+limit]]
+                
+                
             if ordering == 'min_price':
                 results = sorted(results, key=lambda product: product['price'])
             
@@ -37,4 +46,3 @@ class ProductsView(View):
             return JsonResponse({"lists" : results}, status = 200)
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
-                
