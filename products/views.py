@@ -9,7 +9,7 @@ class ProductsView(View):
         try:
             ordering = request.GET.get('ordering', None)
             sort     = request.GET.get('sort', "id")
-            size     = request.GET.getlist('size', None)
+            size     = request.GET.get('size', None).split(',')
             page     = int(request.GET.get('page', 0))
             limit    = int(request.GET.get('limit', 8))
             
