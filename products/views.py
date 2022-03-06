@@ -26,16 +26,15 @@ class ProductsView(View):
                 results = Product.objects.order_by('-created_at')
                 
             results = [{
-                "id"            : product.id,
-                "name"          : product.name,
-                "description"   : product.description,
-                "thumbnail"     : product.thumbnail,
-                "sizes"         : ProductSize.objects.filter(product=product).first().size.size,
-                "discount_rate" : float(product.discount_rate),
-                "price"         : int(ProductSize.objects.filter(product=product).first().price), 
+                "id"             : product.id,
+                "name"           : product.name,
+                "description"    : product.description,
+                "thumbnail"      : product.thumbnail,
+                "sizes"          : ProductSize.objects.filter(product=product).first().size.size,
+                "discount_rate"  : float(product.discount_rate),
+                "price"          : int(ProductSize.objects.filter(product=product).first().price), 
                 "discount_price" : int(ProductSize.objects.filter(product=product).first().price) * float(product.discount_rate)
                 } for product in Product.objects.filter(q).distinct().order_by(sort_set[sort])[page:page+limit]]
-                
                 
             if ordering == 'min_price':
                 results = sorted(results, key=lambda product: product['discount_price'])
