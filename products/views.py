@@ -21,6 +21,7 @@ class ProductsView(View):
             products = Product.objects.annotate(price=F('productsizes__price'))
                    
             sort_set = {
+                'id'        : 'id',
                 'recent'    : '-created_at',
                 'old'       : 'created_at',
                 'expensive' : '-price',
