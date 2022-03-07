@@ -37,7 +37,7 @@ class ProductsView(View):
                 "discount_rate"  : float(product.discount_rate),
                 "price"          : int(ProductSize.objects.filter(product=product).first().price), 
                 "discount_price" : int(ProductSize.objects.filter(product=product).first().price) * float(product.discount_rate)
-                } for product in products.filter(q).distinct().order_by(sort_set[sort])[offset:offset+limit]]
+                } for product in Product.objects.filter(q).distinct().order_by(sort_set[sort])[offset:offset+limit]]
                 
 
             return JsonResponse({"lists" : results}, status = 200)
