@@ -7,25 +7,21 @@ class ProductDetailView(View):
     def get(self, request, product_id):
         try:
             product            = Product.objects.get(id = product_id)
-            product_sizes      = product.productsizes.all()
             product_urls       = [image.url for image in product.productimages.all()]
             information_urls   = [information_image.url for information_image in product.informationimages.all()]
-            size_price         = [{
-                'size'  : product_size.size.size,
-                'price' : product_size.price
+            sizes         = [{
+                'size_id' : product_size.size.id,
+                'size'    : product_size.size.size,
+                'price'   : product_size.price
                 } for product_size in product.productsizes.all()]
             
-            base_price = 0
-
-            for i in size_price:
-                if i['size'] == 'mini':
-                    base_price = i['price']
-
+            base_price = min([size.get('price') for size in sizes])
+        
             result = {
                 'description'        : product.description,
                 'name'               : product.name,
                 'base_price'         : base_price,
-                'size_price'         : size_price,
+                'sizes'              : sizes,
                 'discount_rate'      : product.discount_rate,
                 'product_images'     : product_urls,
                 'information_images' : information_urls
