@@ -9,7 +9,8 @@ class ProductDetailView(View):
             product            = Product.objects.get(id = product_id)
             product_urls       = [image.url for image in product.productimages.all()]
             information_urls   = [information_image.url for information_image in product.informationimages.all()]
-            sizes         = [{
+            
+            sizes = [{
                 'size_id' : product_size.size.id,
                 'size'    : product_size.size.size,
                 'price'   : product_size.price
