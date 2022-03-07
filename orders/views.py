@@ -24,7 +24,7 @@ class OrderView(View):
     @login_decorator
     def post(self, request):
         data = json.loads(request.body)
-        sender_name = data['sender']
+        sender_name = data['sender_name']
         recipient_name = data['recipient_name']
         recipient_phone = data['recipient_phone']
         address = data['address']
