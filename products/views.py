@@ -7,7 +7,6 @@ from products.models  import Product, ProductSize
 class ProductsView(View):
     def get(self, request): 
         try:
-            ordering = request.GET.get('ordering', None)
             sort     = request.GET.get('sort', "id")
             size     = request.GET.get('size', 0)
             offset   = int(request.GET.get('offset', 0))
