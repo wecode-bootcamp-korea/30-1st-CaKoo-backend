@@ -7,7 +7,7 @@ from products.models  import Product, ProductSize
 class ProductsView(View):
     def get(self, request): 
         try:
-            sort     = request.GET.get('sort', "id")
+            sort     = request.GET.get('sort', "recent")
             size     = request.GET.get('size', 0)
             offset   = int(request.GET.get('offset', 0))
             limit    = int(request.GET.get('limit', 8))
@@ -18,10 +18,9 @@ class ProductsView(View):
                 size = size.split(',')
                 q &= Q(sizes__in=size)
             
-            products = Product.objects.annotate(price=F('productsizes__price'))
+            products = Product.objects.annotate(price=F('productsizes__price') * F('discount_rate'))
                    
             sort_set = {
-                'id'        : 'id',
                 'recent'    : '-created_at',
                 'old'       : 'created_at',
                 'expensive' : '-price',
@@ -35,9 +34,9 @@ class ProductsView(View):
                 "thumbnail"      : product.thumbnail,
                 "sizes"          : ProductSize.objects.filter(product=product).first().size.size,
                 "discount_rate"  : float(product.discount_rate),
-                "price"          : int(ProductSize.objects.filter(product=product).first().price), 
+                "price"          : int(ProductSize.objects.filter(product=product)[0].price), 
                 "discount_price" : int(ProductSize.objects.filter(product=product).first().price) * float(product.discount_rate)
-                } for product in Product.objects.filter(q).distinct().order_by(sort_set[sort])[offset:offset+limit]]
+                } for product in products.filter(q).order_by(sort_set[sort])[offset:offset+limit]]
                 
 
             return JsonResponse({"lists" : results}, status = 200)
