@@ -1,4 +1,5 @@
 import json
+from telnetlib import STATUS
 
 from django.http    import JsonResponse
 from django.views   import View
@@ -36,7 +37,28 @@ class CartView(View):
     @login_decorator
     def patch(self, request):
         try:
-            data = json.loads(request.body)
+            cart_id  = request.GET.get('cart_id', None)
+            data     = json.loads(request.body)
             quantity = data['quantity']
-            carts = Cart.objects.filter(user=request.user)
+
+            if cart_id:
+                Cart.objects.filter(id = int(cart_id)).update(quantity = quantity)
+        
+            return JsonResponse({"message" : "SUCCESS"}, status = 201)
+        
+        except Cart.DoesNotExist:
+            return JsonResponse({"message" : "INVALID_CART"}, status = 404)
+
+    @login_decorator
+    def delete(self, request):
+        try:
+            cart_id  = request.GET.get('cart_id', None)
+            
+            if cart_id:
+                Cart.objects.filter(id = int(cart_id)).delete()
+            
+            return JsonResponse({"result":"success"}, status=204)
+        
+        except KeyError:
+            return JsonResponse({"message":"KeyError"}, status=401)
             
