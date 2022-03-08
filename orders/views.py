@@ -9,13 +9,13 @@ from carts.models import Cart
 class OrderView(View):
     @login_decorator
     def get(self, request):
-        carts = Cart.objects.filter(user = request.user)
+        carts  = Cart.objects.filter(user = request.user)
         result = [{
-            'name' : cart.product_size.product.name,
-            'quantity' : cart.quantity,
-            'price' : cart.quantity * cart.product_size.price,
-            'thumnail' : cart.product_size.product.thumbnail,
-            'user_name' : cart.user.name,
+            'name'       : cart.product_size.product.name,
+            'quantity'   : cart.quantity,
+            'price'      : cart.quantity * cart.product_size.price,
+            'thumnail'   : cart.product_size.product.thumbnail,
+            'user_name'  : cart.user.name,
             'user_phone' : cart.user.phone_number
         } for cart in carts]
 
