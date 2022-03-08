@@ -32,3 +32,11 @@ class CartView(View):
 
         except Cart.DoesNotExist:
             return JsonResponse({"message" : "CART_NOT_EXIST"}, status = 404)
+    
+    @login_decorator
+    def patch(self, request):
+        try:
+            data = json.loads(request.body)
+            quantity = data['quantity']
+            carts = Cart.objects.filter(user=request.user)
+            
