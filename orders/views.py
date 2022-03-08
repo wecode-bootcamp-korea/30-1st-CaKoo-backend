@@ -5,7 +5,8 @@ from django.views import View
 
 from users.utils  import login_decorator
 from carts.models import Cart
-from .models      import Order, OrderItem, OrderStatus
+from .models      import Order, OrderItem
+from .utils       import validate_order_number
 
 class OrderView(View):
     @login_decorator
@@ -29,14 +30,20 @@ class OrderView(View):
             recipient_name  = data['recipient_name']
             recipient_phone = data['recipient_phone']
             address         = data['address']
-
-            for cart in Cart.objects.filter(user = request.user):
-                OrderItem.objects.create(product_size = cart.product_size, quantity = cart.quantity)
             
-            order = Order.objects.create(sender_name = sender_name, address = address,\
-                                        recipient_name = recipient_name, recipient_phone = recipient_phone,\
-                                        user = request.user)
+            order_number    = validate_order_number()
+            
+            if not Order.objects.filter(order_number = order_number).exists():
+                order = Order.objects.create(sender_name = sender_name, address = address,\
+                                            recipient_name = recipient_name, recipient_phone = recipient_phone,\
+                                            order_status_id = 1, user = request.user, order_number = order_number)
+            else:
+                order_number
+                
+            for cart in Cart.objects.filter(user = request.user):
+                OrderItem.objects.create(product_size = cart.product_size, quantity = cart.quantity, order = order)
 
-            OrderItem.objects.update(order = order)
+            return JsonResponse({"message" : "SUCCESS"}, status = 201)
 
-            order_number = order.ordered_at.strftime("%y%m%d") + order.
+        except KeyError:
+            return JsonResponse({"message" : "KEY_ERROR"}, status = 400)
