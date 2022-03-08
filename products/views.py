@@ -1,6 +1,6 @@
 from django.views     import View
 from django.http      import JsonResponse
-from django.db.models import Q, F
+from django.db.models import Q, Min
 
 from products.models  import Product, ProductSize
 
@@ -18,25 +18,25 @@ class ProductsView(View):
                 size = size.split(',')
                 q &= Q(sizes__in=size)
             
-            products = Product.objects.annotate(price=F('productsizes__price') * F('discount_rate'))
-                   
             sort_set = {
                 'recent'    : '-created_at',
                 'old'       : 'created_at',
-                'expensive' : '-price',
-                'cheap'     : 'price' 
+                'expensive' : '-base_price',
+                'cheap'     : 'base_price' 
             } 
                       
+            products = Product.objects.annotate(base_price=Min('productsizes__price'))
+            
             results = [{
                 "id"             : product.id,
                 "name"           : product.name,
                 "description"    : product.description,
                 "thumbnail"      : product.thumbnail,
-                "sizes"          : ProductSize.objects.filter(product=product).first().size.size,
+                "sizes"          : [size.size for size in product.sizes.all()],
                 "discount_rate"  : float(product.discount_rate),
-                "price"          : int(ProductSize.objects.filter(product=product)[0].price), 
-                "discount_price" : int(ProductSize.objects.filter(product=product).first().price) * float(product.discount_rate)
-                } for product in products.filter(q).order_by(sort_set[sort])[offset:offset+limit]]
+                "price"          : int(product.base_price), 
+                "discount_price" : int(product.base_price * product.discount_rate)
+            } for product in products.filter(q).order_by(sort_set[sort])[offset:offset+limit]]
                 
 
             return JsonResponse({"lists" : results}, status = 200)
