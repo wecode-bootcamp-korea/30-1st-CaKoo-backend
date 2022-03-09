@@ -164,3 +164,7 @@ node_modules/
 secret.py
 a.py
 product.csv
+db_uploads.py
+information_image.csv
+product_image.csv
+product_size.csv
