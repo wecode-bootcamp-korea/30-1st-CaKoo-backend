@@ -1,12 +1,12 @@
 from django.db import models
 
 class Product(models.Model):
-    name         = models.CharField(max_length=50)
-    description  = models.EmailField(max_length=100)
-    thumbnail    = models.CharField(max_length=2000)
-    created_at   = models.DateTimeField(auto_now_add=True)
-    updated_at   = models.DateTimeField(auto_now=True)
-    sizes        = models.ManyToManyField("Size", related_name="products", through="ProductSize", through_fields=("product", "size"))
+    name          = models.CharField(max_length=50)
+    description   = models.EmailField(max_length=100)
+    thumbnail     = models.CharField(max_length=2000)
+    created_at    = models.DateTimeField(auto_now_add=True)
+    updated_at    = models.DateTimeField(auto_now=True)
+    sizes         = models.ManyToManyField("Size", related_name="products", through="ProductSize", through_fields=("product", "size"))
     discount_rate = models.DecimalField(max_digits=3, decimal_places=2) 
     
     class Meta:

@@ -15,7 +15,7 @@ class SignUpView(View):
             email        = data['email']
             password     = data['password']
             phone_number = data['phone_number']
-            birthdate    = data["birthdate"]
+            birthdate    = data['birthdate']
 
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
