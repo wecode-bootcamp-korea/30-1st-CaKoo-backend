@@ -1,5 +1,4 @@
 import json
-from tkinter import E
 
 from django.http  import JsonResponse
 from django.views import View
@@ -18,7 +17,7 @@ class CartView(View):
 
             for cart in carts:
                 cart = {
-                    "cart_id"      : cart.id,
+                    "cart_id"       : cart.id,
                     "product_name"  : cart.product_size.product.name,
                     "product_size"  : cart.product_size.size.size,
                     "product_price" : cart.product_size.price,
@@ -34,40 +33,23 @@ class CartView(View):
         except Cart.DoesNotExist:
             return JsonResponse({"message" : "CART_NOT_EXIST"}, status = 404)
     
-    # @login_decorator
-    # def patch(self, request, cart_id_list):
-    #     try:
-    #         # cart_id  = request.GET.get('cart_id')
+    @login_decorator
+    def patch(self, request, cart_id):
+        try:
+            data     = json.loads(request.body)
+            quantity = data['quantity']            
             
-    #         cart_list = cart_id_list.split(',')
-    #         carts     = tuple(cart_id for cart_id in cart_list)
-    #         data      = json.loads(request.body)
-    #         # quantity = data['quantity']
-    #         quantitis = [quantity for quantity in data.values()]
-    #         print(quantitis)
-    #         print(type(quantitis))
-    #         sample = dict.fromkeys(carts, quantitis)
-    #         print(sample)
-            
-    #         # cart = Cart.objects.get(cart_id = cart_id, user = request.user)
-    #         for key, value in sample.items():
-    #             cart = Cart.objects.get(cart_id = int(key), user = request.user)
-    #             cart.quantity = value
-    #             cart.save()
-
-    #         # for cart in carts:
-    #         #     cart          = Cart.objects.get(cart_id = cart_id, user = request.user)
-    #         #     cart.quantity = quantity
-    #         #     cart.save()
-            
+            cart          = Cart.objects.get(id = cart_id, user = request.user)
+            cart.quantity = quantity
+            cart.save()
         
-    #         return JsonResponse({"message" : "SUCCESS"}, status = 200)
+            return JsonResponse({"message" : "SUCCESS"}, status = 200)
         
-    #     except Cart.DoesNotExist:
-    #         return JsonResponse({"message" : "INVALID_CART"}, status = 404)
+        except Cart.DoesNotExist:
+            return JsonResponse({"message" : "INVALID_CART"}, status = 404)
         
-    #     except KeyError:
-    #         return JsonResponse({"message" : "KEY_ERROR"}, status = 401)
+        except KeyError:
+            return JsonResponse({"message" : "KEY_ERROR"}, status = 401)
 
     @login_decorator
     def delete(self, request, cart_id):
