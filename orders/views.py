@@ -14,16 +14,16 @@ class OrderView(View):
         try:
             data = json.loads(request.body)
             user = request.user
-            
-            carts        = Cart.objects.filter(user=user)
-            uuid_        = uuid.uuid4() 
+            cart_id = data["cart_id"].split(',')
+
+            carts        = Cart.objects.filter(user=user, id__in=cart_id)
             order_status = OrderStatus.objects.get(status="Confirmed") 
 
             with transaction.atomic():
                 order = Order.objects.create(
                         user            = user, 
                         sender_name     = user.name,
-                        order_number    = uuid_,
+                        order_number    = uuid.uuid4(),
                         order_status    = order_status,
                         address         = data["address"],
                         recipient_name  = data["recipient_name"],
@@ -38,12 +38,12 @@ class OrderView(View):
                 ) for cart in carts
             ]     
             OrderItem.objects.bulk_create(order_items)
-
-            Cart.objects.filter(user=user).delete()
+            carts.delete()
+            
             return JsonResponse({"message" : "SUCCESS"}, status=201)
 
-        except KeyError as e:
-            return JsonResponse({"message" : getattr(e, 'message', str(e))}, status=401)
+        except KeyError:
+            return JsonResponse({"message" : "KEYERROR"}, status=400)
         
         
 
