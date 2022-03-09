@@ -31,7 +31,7 @@ class CartView(View):
             return JsonResponse({"message" : result}, status = 200)
         
         except KeyError:
-            return JsonResponse({"message" : "KEY_ERROR"}, status = 400)
+            return JsonResponse({"message" : "KEY_ERROR"}, status = 401)
 
         except Cart.DoesNotExist:
             return JsonResponse({"message" : "CART_NOT_EXIST"}, status = 404)
@@ -62,10 +62,10 @@ class CartView(View):
                     cart.save()
                     return JsonResponse({"message" : "SUCCESS"}, status = 200)
 
-            return JsonResponse({"message" : "SUCCESS"}, status = 200)
+            return JsonResponse({"message" : "SUCCESS"}, status = 201)
 
         except KeyError:
-            return JsonResponse({"message" : "KEYERROR"}, status = 400)
+            return JsonResponse({"message" : "KEYERROR"}, status = 401)
 
         except Cart.DoesNotExist:
             return JsonResponse({"message" : 'CART_NOT_EXIST'}, status = 404)
