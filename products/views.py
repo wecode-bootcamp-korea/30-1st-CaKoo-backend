@@ -32,7 +32,7 @@ class ProductsView(View):
                 "name"           : product.name,
                 "description"    : product.description,
                 "thumbnail"      : product.thumbnail,
-                "sizes"          : [size.size for size in product.sizes.all()],
+                "sizes"          : [size.size for size in product.sizes.all().order_by('id')],
                 "discount_rate"  : float(product.discount_rate),
                 "price"          : int(product.base_price), 
                 "discount_price" : int(product.base_price * product.discount_rate)
