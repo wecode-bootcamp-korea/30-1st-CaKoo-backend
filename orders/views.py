@@ -31,14 +31,10 @@ class OrderView(View):
             recipient_phone = data['recipient_phone']
             address         = data['address']
             
-            order_number    = validate_order_number()
-            
-            if not Order.objects.filter(order_number = order_number).exists():
+            if validate_order_number():
                 order = Order.objects.create(sender_name = sender_name, address = address,\
                                             recipient_name = recipient_name, recipient_phone = recipient_phone,\
-                                            order_status_id = 1, user = request.user, order_number = order_number)
-            else:
-                order_number
+                                            order_status_id = 1, user = request.user, order_number = request.order_number)
                 
             for cart in Cart.objects.filter(user = request.user):
                 OrderItem.objects.create(product_size = cart.product_size, quantity = cart.quantity, order = order)
