@@ -14,8 +14,8 @@ class OrderView(View):
         try:
             data = json.loads(request.body)
             user = request.user
-            cart_id = data["cart_id"].split(',')
-
+            
+            cart_id      = data["cart_id"].split(',')
             carts        = Cart.objects.filter(user=user, id__in=cart_id)
             order_status = OrderStatus.objects.get(status="Confirmed") 
 
@@ -46,5 +46,3 @@ class OrderView(View):
             return JsonResponse({"message" : "KEYERROR"}, status=400)
         
         
-
-            
