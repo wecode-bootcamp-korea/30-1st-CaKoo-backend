@@ -30,16 +30,16 @@ class OrderView(View):
                         recipient_phone = data["recipient_phone"],
                     )
             
-            order_items = [
-                OrderItem(
-                    order        = order,
-                    product_size = cart.product_size,
-                    quantity     = cart.quantity
-                ) for cart in carts
-            ]     
-            OrderItem.objects.bulk_create(order_items)
+                order_items = [
+                    OrderItem(
+                        order        = order,
+                        product_size = cart.product_size,
+                        quantity     = cart.quantity
+                    ) for cart in carts
+                ]     
+                OrderItem.objects.bulk_create(order_items)
+                
             carts.delete()
-            
             return JsonResponse({"message" : "SUCCESS"}, status=201)
 
         except KeyError:
