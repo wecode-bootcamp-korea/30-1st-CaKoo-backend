@@ -14,7 +14,7 @@ class CartView(View):
         try:
             user   = request.user
             carts  = Cart.objects.filter(user=user)
-            result = []
+            data = []
 
             for cart in carts:
                 cart = {
@@ -26,12 +26,15 @@ class CartView(View):
                     "discount_rate" : float(cart.product_size.product.discount_rate),
                     "thumbnail"     : cart.product_size.product.thumbnail
                 }
-                result.append(cart)
+                data.append(cart)
+            
+            result = {
+                "user_name"         : user.name,
+                "user_phone_number" : user.phone_number,
+                "data"              : data
+            }
 
-            return JsonResponse({"message" : result}, status = 200)
-        
-        except KeyError:
-            return JsonResponse({"message" : "KEY_ERROR"}, status = 401)
+            return JsonResponse({"result" : result}, status = 200)
 
         except Cart.DoesNotExist:
             return JsonResponse({"message" : "CART_NOT_EXIST"}, status = 404)
@@ -65,7 +68,7 @@ class CartView(View):
             return JsonResponse({"message" : "SUCCESS"}, status = 201)
 
         except KeyError:
-            return JsonResponse({"message" : "KEYERROR"}, status = 401)
+            return JsonResponse({"message" : "KEYERROR"}, status = 400)
 
         except Cart.DoesNotExist:
             return JsonResponse({"message" : 'CART_NOT_EXIST'}, status = 404)
@@ -86,7 +89,7 @@ class CartView(View):
             return JsonResponse({"message" : "INVALID_CART"}, status = 404)
         
         except KeyError:
-            return JsonResponse({"message" : "KEY_ERROR"}, status = 401)
+            return JsonResponse({"message" : "KEY_ERROR"}, status = 400)
 
     @login_decorator
     def delete(self, request, cart_id):
