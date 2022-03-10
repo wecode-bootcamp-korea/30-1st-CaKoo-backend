@@ -10,7 +10,7 @@ from users.utils   import login_decorator
 from carts.models  import Cart
 from orders.models import Order,OrderItem, OrderStatus
 
-class OrderStatus(Enum):
+class OrderStatusEnum(Enum):
     CONFIRMED = 1  
     CANCELED  = 2
     PENDING   = 3
@@ -24,7 +24,7 @@ class OrderView(View):
             
             cart_ids     = data["cart_ids"]
             carts        = Cart.objects.filter(user=user, id__in=cart_ids)
-            order_status = OrderStatus.objects.get(status=OrderStatus.CONFIRMED.value) 
+            order_status = OrderStatus.objects.get(id=OrderStatusEnum.CONFIRMED.value) 
 
             with transaction.atomic():
                 order = Order.objects.create(
