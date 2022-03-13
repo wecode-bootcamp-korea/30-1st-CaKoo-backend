@@ -108,6 +108,7 @@
 
 ---
 # 시연 영상
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/60570733/158055641-023b0d1c-9604-4f4e-8749-1d4cc4bc8d53.gif)
 
 ![로그인](https://user-images.githubusercontent.com/90089275/158054617-ecaac1da-f80c-4217-add2-42f94693e431.gif)
 ![상품상세](https://user-images.githubusercontent.com/90089275/158054619-54713ed7-3836-4d73-b9d0-f639dc61df29.gif)
