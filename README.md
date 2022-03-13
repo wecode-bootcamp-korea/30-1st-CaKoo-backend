@@ -1,4 +1,8 @@
-<img src ="https://user-images.githubusercontent.com/90089275/158053748-d2aa6770-7bb9-4ad2-a1e4-606143467ec6.png" width="200" height="300">
+---
+# 📍 데모 영상
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/60570733/158055717-625ca541-4541-4729-88de-1a9075ed0321.gif)
+
 
 <br><br>
 
@@ -106,18 +110,7 @@
 
 <br><br>
 
----
-# 시연 영상
 
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/60570733/158055717-625ca541-4541-4729-88de-1a9075ed0321.gif)
-
-![로그인](https://user-images.githubusercontent.com/90089275/158054617-ecaac1da-f80c-4217-add2-42f94693e431.gif)
-![상품상세](https://user-images.githubusercontent.com/90089275/158054619-54713ed7-3836-4d73-b9d0-f639dc61df29.gif)
-![장바구니](https://user-images.githubusercontent.com/90089275/158054623-0376486c-cbda-428b-ac5b-29befe9cc2d0.gif)
-![주문결제](https://user-images.githubusercontent.com/90089275/158054624-86307905-960a-4ed3-8c49-44bc23b51ec8.gif)
-
-
-<br><br>
 ---
 # Reference
 * 이 프로젝트는 [꾸까](https://kukka.kr) 사이트를 참조하여 학습목적으로 만들었습니다.
