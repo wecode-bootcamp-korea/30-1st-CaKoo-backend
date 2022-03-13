@@ -20,7 +20,7 @@
 
 # 📍 데모 영상
 
-<img src = "https://user-images.githubusercontent.com/60570733/158055717-625ca541-4541-4729-88de-1a9075ed0321.gif" width="1000" height="400" >
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/60570733/158057150-f3502d34-5bee-4b4b-a78a-baccb133f661.gif)
 
 
 <br><br>
@@ -118,6 +118,7 @@
 
 ## Trello
 <img width="1669" alt="스크린샷 2022-03-13 오후 8 17 03" src="https://user-images.githubusercontent.com/60570733/158056941-78f7eece-2557-41c5-a1e3-f6b0407b535c.png">
+
 * 트렐로를 이용해 모든 업무들을 세분화 시켜 하나의 티켓으로 만들었습니다.
 * 팀원들과 공유해야할 내용은 공지 탭을 통해 단일화하였습니다.
 * 전체 프로세스를 네 가지 카테고리로 나눠서 각각의 티켓을 과정에 따라 하나씩 이동 시키며 프로젝트의 모든 일정과 업무를 관리했습니다.
