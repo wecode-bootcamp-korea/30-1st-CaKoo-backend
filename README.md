@@ -108,7 +108,8 @@
 
 ---
 # 시연 영상
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/60570733/158055641-023b0d1c-9604-4f4e-8749-1d4cc4bc8d53.gif)
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/60570733/158055717-625ca541-4541-4729-88de-1a9075ed0321.gif)
 
 ![로그인](https://user-images.githubusercontent.com/90089275/158054617-ecaac1da-f80c-4217-add2-42f94693e431.gif)
 ![상품상세](https://user-images.githubusercontent.com/90089275/158054619-54713ed7-3836-4d73-b9d0-f639dc61df29.gif)
@@ -125,3 +126,5 @@
 * 이 프로젝트에서 사용하고 있는 로고와 배너는 해당 프로젝트 팀원 소유이므로 해당 프로젝트 외부인이 사용할 수 없습니다
 
 ![Footer](https://capsule-render.vercel.app/api?type=waving&color=ffcc51&height=100&section=footer)
+
+
