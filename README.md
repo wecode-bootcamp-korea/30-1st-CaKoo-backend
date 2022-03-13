@@ -1,4 +1,21 @@
----
+# cakoo 프로젝트
+케이쿠는 꾸까를 모티브 해 케이크를 판매하는 이커머스 사이트로 구매하기까지의 로직에 집중하여 클론코딩을 진행하였습니다. 원하는 케이크 조건 검색, 케이크 리스트 조회, 케이스 상세 페이지, 상품 장바구니 넣기, 수량 선택, 주문까지 하나의 플로우를 구현했습니다.
+--
+🚀 개발 인원 및 기간
+개발 기간 : 2022/2/28 ~ 2022/3/11 (2주간)
+* ## 프론트엔드 3명, 백엔드 3명
+
+    * Front-end  
+        * 신윤숙 - Login, Order
+        * 전슬기 - Product List, Product Detail
+        * 김준영 - Sign Up, Cart 
+        
+    * Back-end   
+        * 김기현 - Modeling, SignUp, Product List API, Order API
+        * 이지원 - Modeling, Cart API
+        * 박건규 - Modeling, SignIn, Product Detail API, Order API
+<br><br>
+--
 # 📍 데모 영상
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/60570733/158055717-625ca541-4541-4729-88de-1a9075ed0321.gif)
@@ -42,24 +59,6 @@
 
 <br><br>
 
----
-# 개발기간 및 팀원
-
-* ## 개발기간  
-    2022.02.28 ~ 2022.03.10  
-
-* ## 개발인원 및 파트
-
-    * Front-end  
-        * 신윤숙 - Login, Order
-        * 전슬기 - Product List, Product Detail
-        * 김준영 - Sign Up, Cart 
-        
-    * Back-end   
-        * 김기현 - SignUp, Product List API, Order API
-        * 이지원 - Cart API
-        * 박건규 - SignIn, Product Detail API, Order API
-<br><br>
 
 ---
 # 적용 기술 및 구현 기능
@@ -87,12 +86,13 @@
         <a href="#"><img src="https://img.shields.io/badge/Notion-F7F7F7?style=plastic&logo=notion&logoColor=black"/></a>
 * ## 구현기능
     * 회원가입 / 로그인
-        - 정규 표현식을 통한 이메일아이디 및 비밀번호 유효성 검사
+        - 정규 표현식을 통한 이메일, 아이디 및 비밀번호 유효성 검사
         - 비밀번호 암호화 및 JWT 발급
         - request.header에 담긴 token을 통해 로그인 여부를 검사
     * 상품 리스트 페이지
-        - 판매 상품의 분류에 따라 filtering
-        - 사용자가 원하는 기준에 따라 sorting
+        - Q를 활용해 판매 상품의 분류에 따른 filtering 적용
+        - 가격, 생산 순에 따른 sorting 적용
+        - pagination
     * 상품 상세 페이지
         - 상품 상세페이지에 필요한 데이터를 products와 product_size, size 테이블에서 필터링 하여 엔드 포인트로 전달
         - 필요한 옵션을 선택하여 장바구니로 저장할 수 있도록 구현
@@ -101,6 +101,7 @@
     * 주문
         - 장바구니에서 넘겨받은 정보를 넘겨받아 구매
         - 일련의 과정에 원자성을 부여하기 위해 transaction 사용
+        - 주문 후 주문내역을 받을 수 있는 로직 구현
         - 구매 한 상품은 장바구니에서 삭제
 <br><br>
 
